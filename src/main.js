@@ -7,11 +7,11 @@ import App from './App'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
-import store from './store'
-import index from './components/page/index'
-import menu from './components/page/menu/menu'
-import search from './components/page/search/search'
-import order from './components/page/order/order'
+import store from './stores/store'
+import index from './views/index/index'
+import menu from './views/menu/menu'
+import search from './views/search/search'
+import order from './views/order/order'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
@@ -42,5 +42,6 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app-box')
