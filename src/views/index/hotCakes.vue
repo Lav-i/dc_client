@@ -23,7 +23,6 @@
         console.log(response)
       }).catch((error) => {
         console.log(error)
-        console.log(this)
         this.menuList = [{
           src: 'http://fs1.shop123.com.tw/400178/upload/standard/4001781607source_picture_719982.jpg',
           title: '冠军',

@@ -27,6 +27,15 @@
     props: {
       categoryMsg: String
     },
+    methods: {
+      getHistoryMenu: (menuList) => {
+        let cart = JSON.parse(localStorage.getItem('cartList'))
+        for (let key in menuList) {
+          menuList[key].count = cart && cart[menuList[key].id] ? cart[menuList[key].id].count : 0
+        }
+        return menuList
+      }
+    },
     watch: {
       'categoryMsg': function () {
         getMenu({categoryMsg: this.categoryMsg}).then((response) => {
@@ -34,7 +43,7 @@
         }).catch((error) => {
           console.log(error)
           // TODO:"模拟数据"
-          this.menuList = [{
+          let menuList = [{
             id: 1,
             name: '麻婆豆腐',
             price: 12
@@ -51,16 +60,17 @@
             name: '水煮肉',
             price: 12
           }]
+          this.menuList = this.getHistoryMenu(menuList)
         })
       }
     },
     data () {
       return {
-        menuList: [{
+        menuList: this.getHistoryMenu([{
           id: 1,
           name: '麻婆豆腐',
           price: 12
-        }]
+        }])
       }
     }
   }

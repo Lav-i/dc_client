@@ -26,7 +26,7 @@
     },
     data () {
       return {
-        count: 0
+        count: this.details.count
       }
     }
   }

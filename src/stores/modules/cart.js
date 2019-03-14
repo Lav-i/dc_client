@@ -1,36 +1,61 @@
 const state = {
-  cartList: {}
+  cartList: JSON.parse(localStorage.getItem('cartList')) ? JSON.parse(localStorage.getItem('cartList')) : {},
+  orderState: -1
 }
 
 const getters = {
-  cartList: state => state.cartList
+  cartList: state => {
+    let list = []
+    let cart = state.cartList
+    for (let key in cart) {
+      list.push({
+        label: cart[key].name + '*' + cart[key].count,
+        value: cart[key].count * cart[key].price
+      })
+    }
+    return list
+  },
+  cartTotalPrice: state => {
+    let sum = 0
+    let cart = state.cartList
+    for (let key in cart) {
+      sum += cart[key].price * cart[key].count
+    }
+    return sum
+  },
+  orderState: state => state.orderState
 }
 
 const actions = {
   addCart ({commit}, food) {
-    commit('addCart', food)
+    let cart = state.cartList
+    cart[food.id] = {...food}
+    localStorage.setItem('cartList', JSON.stringify(cart))
+    commit('addCart', cart)
   },
   deleteFood ({commit}, food) {
-    commit('deleteFood', food)
+    let cart = state.cartList
+    delete (cart[food.id])
+    localStorage.setItem('cartList', JSON.stringify(cart))
+    commit('deleteFood', cart)
+  },
+  finishOrder ({commit}) {
+    localStorage.removeItem('cartList')
+    commit('finishOrder')
   }
 }
 
 // mutations
 const mutations = {
-  addCart (state, food) {
-    let cart = state.cartList
-    cart[food.id] = {...food}
-
+  addCart (state, cartList) {
     // 触发更新
-    state.cartList = cart
-    localStorage.setItem('cartList', JSON.stringify(state.cartList))
+    state.cartList = {...cartList}
   },
-  deleteFood (state, food) {
-    let cart = state.cartList
-    delete (cart[food.id])
-
-    state.cartList = cart
-    localStorage.setItem('cartList', JSON.stringify(state.cartList))
+  deleteFood (state, cartList) {
+    state.cartList = {...cartList}
+  },
+  finishOrder (state) {
+    state.orderState = 0
   }
 }
 
