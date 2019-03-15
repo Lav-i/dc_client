@@ -9,8 +9,10 @@ const getters = {
     let cart = state.cartList
     for (let key in cart) {
       list.push({
-        label: cart[key].name + '*' + cart[key].count,
-        value: cart[key].count * cart[key].price
+        id: cart[key].id,
+        name: cart[key].name,
+        count: cart[key].count,
+        price: cart[key].count * cart[key].price
       })
     }
     return list
