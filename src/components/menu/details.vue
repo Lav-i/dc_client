@@ -12,8 +12,16 @@
 </template>
 
 <script>
-  import { Divider, XNumber, Group, Cell } from 'vux'
-  import {getMenu} from '@/api/menu'
+  import {
+    Divider,
+    XNumber,
+    Group,
+    Cell
+  } from 'vux'
+  import {
+    getMenu,
+    getMenuByName
+  } from '@/api/menu'
   import selector from './children/selector.vue'
 
   export default {
@@ -25,7 +33,8 @@
       'selector': selector
     },
     props: {
-      categoryMsg: String
+      categoryMsg: String,
+      keyName: String
     },
     methods: {
       getHistoryMenu: (menuList) => {
@@ -38,7 +47,9 @@
     },
     watch: {
       'categoryMsg': function () {
-        getMenu({categoryMsg: this.categoryMsg}).then((response) => {
+        getMenu({
+          categoryMsg: this.categoryMsg
+        }).then((response) => {
           console.log(response.data)
         }).catch((error) => {
           console.log(error)
@@ -59,6 +70,26 @@
             id: 4,
             name: '水煮肉',
             price: 12
+          }]
+          this.menuList = this.getHistoryMenu(menuList)
+        })
+      },
+      'keyName': function () {
+        getMenuByName({
+          keyName: this.keyName
+        }).then((response) => {
+          console.log(response.data)
+        }).catch((error) => {
+          console.log(error)
+          // TODO:"模拟数据"
+          let menuList = [{
+            id: 1,
+            name: '麻婆豆腐',
+            price: 12
+          }, {
+            id: 2,
+            name: '酸辣土豆丝',
+            price: 6
           }]
           this.menuList = this.getHistoryMenu(menuList)
         })

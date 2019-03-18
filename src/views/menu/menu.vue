@@ -13,7 +13,7 @@
 
 <script>
   import { Tab, TabItem } from 'vux'
-  import details from './children/details.vue'
+  import details from '@/components/menu/details.vue'
 
   export default {
     components: {

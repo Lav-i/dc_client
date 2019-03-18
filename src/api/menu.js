@@ -18,6 +18,15 @@ export const getMenu = (data) => {
   return _get(req)
 }
 
+// 按照名称模糊获取菜单
+export const getMenuByName = (data) => {
+  let req = {
+    data,
+    url: ''
+  }
+  return _get(req)
+}
+
 export const testApi = (data) => {
   let req = {
     data,
