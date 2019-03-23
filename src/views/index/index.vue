@@ -10,6 +10,7 @@
   import bottom from '@/components/bottom.vue'
   import welcome from './welcome.vue'
   import hotCakes from './hotcakes.vue'
+  import { getUrlKey } from '@/assets/scripts/utils.js'
 
   export default {
     components: {
@@ -17,6 +18,11 @@
       'v-bottom': bottom,
       'v-welcome': welcome,
       'v-hotCakes': hotCakes
+    },
+    created () {
+      if (this.$store.getters.tableId === '0000') {
+        this.$store.dispatch('setTableId', getUrlKey('table'))
+      }
     }
   }
 </script>

@@ -20,7 +20,7 @@
   } from 'vux'
   import {
     getMenu,
-    getMenuByName
+    getMenuByNameLike
   } from '@/api/menu'
   import selector from './children/selector.vue'
 
@@ -33,7 +33,9 @@
       'selector': selector
     },
     props: {
-      categoryMsg: String,
+      categoryMsg: {
+        default: 'all'
+      },
       keyName: String
     },
     methods: {
@@ -48,60 +50,35 @@
     watch: {
       'categoryMsg': function () {
         getMenu({
-          categoryMsg: this.categoryMsg
+          category: this.categoryMsg
         }).then((response) => {
-          console.log(response.data)
-        }).catch((error) => {
-          console.log(error)
-          // TODO:"模拟数据"
-          let menuList = [{
-            id: 1,
-            name: '麻婆豆腐',
-            price: 12
-          }, {
-            id: 2,
-            name: '酸辣土豆丝',
-            price: 6
-          }, {
-            id: 3,
-            name: '回锅肉',
-            price: 24
-          }, {
-            id: 4,
-            name: '水煮肉',
-            price: 12
-          }]
-          this.menuList = this.getHistoryMenu(menuList)
+          if (response.data.code === 0) {
+            this.menuList = this.getHistoryMenu(response.data.data)
+          }
         })
       },
       'keyName': function () {
-        getMenuByName({
-          keyName: this.keyName
+        getMenuByNameLike({
+          name: this.keyName
         }).then((response) => {
-          console.log(response.data)
-        }).catch((error) => {
-          console.log(error)
-          // TODO:"模拟数据"
-          let menuList = [{
-            id: 1,
-            name: '麻婆豆腐',
-            price: 12
-          }, {
-            id: 2,
-            name: '酸辣土豆丝',
-            price: 6
-          }]
-          this.menuList = this.getHistoryMenu(menuList)
+          if (response.data.code === 0) {
+            this.menuList = this.getHistoryMenu(response.data.data)
+          }
         })
       }
     },
+    created () {
+      getMenu({
+        category: this.categoryMsg
+      }).then((response) => {
+        if (response.data.code === 0) {
+          this.menuList = this.getHistoryMenu(response.data.data)
+        }
+      })
+    },
     data () {
       return {
-        menuList: this.getHistoryMenu([{
-          id: 1,
-          name: '麻婆豆腐',
-          price: 12
-        }])
+        menuList: []
       }
     }
   }

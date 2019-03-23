@@ -14,31 +14,24 @@
     },
     data () {
       return {
+        tab: ['冠军', '亚军', '季军'],
         menuList: []
       }
     },
     created () {
       getHotCakes().then((response) => {
-        // TODO:
-        console.log(response)
-      }).catch((error) => {
-        console.log(error)
-        this.menuList = [{
-          src: 'http://fs1.shop123.com.tw/400178/upload/standard/4001781607source_picture_719982.jpg',
-          title: '冠军',
-          desc: '销售量冠军，月销售量200',
-          url: '/'
-        }, {
-          src: 'http://fs1.shop123.com.tw/400178/upload/standard/4001781607source_picture_719982.jpg',
-          title: '亚军',
-          desc: '销售量亚军，月销售量100',
-          url: '/'
-        }, {
-          src: 'http://fs1.shop123.com.tw/400178/upload/standard/4001781607source_picture_719982.jpg',
-          title: '季军',
-          desc: '销售量季军，月销售量50',
-          url: '/'
-        }]
+        if (response.data.code === 0) {
+          let menu = []
+          for (let i in response.data.data) {
+            menu.push({
+              src: 'http://fs1.shop123.com.tw/400178/upload/standard/4001781607source_picture_719982.jpg',
+              title: this.tab[i] + '：' + response.data.data[i].name,
+              desc: '榜单销售' + this.tab[i] + '，累计月销售高达' + response.data.data[i].num + '件',
+              url: '/'
+            })
+          }
+          this.menuList = menu
+        }
       })
     }
   }

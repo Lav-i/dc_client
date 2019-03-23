@@ -1,10 +1,10 @@
-import {_get, _post} from './index'
+import {_get} from './index'
 
 // 获取销售榜单
 export const getHotCakes = (data) => {
   let req = {
     data,
-    url: ''
+    url: '/api/menu/hotcake'
   }
   return _get(req)
 }
@@ -13,24 +13,16 @@ export const getHotCakes = (data) => {
 export const getMenu = (data) => {
   let req = {
     data,
-    url: ''
+    url: '/api/menu/category'
   }
   return _get(req)
 }
 
 // 按照名称模糊获取菜单
-export const getMenuByName = (data) => {
+export const getMenuByNameLike = (data) => {
   let req = {
     data,
-    url: ''
+    url: '/api/menu/name'
   }
   return _get(req)
-}
-
-export const testApi = (data) => {
-  let req = {
-    data,
-    url: 'login'
-  }
-  return _post(req)
 }

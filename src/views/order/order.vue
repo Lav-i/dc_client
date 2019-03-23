@@ -40,6 +40,9 @@
     XTable
   } from 'vux'
   import item from './children/item.vue'
+  import {
+    finishOrder
+  } from '@/api/order'
 
   export default {
     components: {
@@ -53,9 +56,25 @@
     },
     methods: {
       hunger: function () {
+        console.log(this.$store.getters.tableId)
         this.isEmptyToast = !(this.cartTotalPrice > 0)
         if (this.cartTotalPrice > 0) {
-          this.$store.dispatch('finishOrder')
+          let data = []
+          for (let i in this.list) {
+            data.push({
+              menuId: this.list[i].id,
+              count: this.list[i].count
+            })
+          }
+          finishOrder({
+            'tableId': 1,
+            'state': '0',
+            'data': data
+          }).then((response) => {
+            if (response.data.code === 0) {
+              this.$store.dispatch('finishOrder')
+            }
+          })
         }
       }
     },
