@@ -1,7 +1,7 @@
 <template>
   <div>
-    <search v-model="keyName" position="absolute" auto-scroll-to-top top="46px" ref="search"></search>
-    <v-details :keyName="keyName"></v-details>
+    <search v-model="keyName" auto-scroll-to-top top="46px" ref="search" style="width:100%;position:fixed;left:0;top:0;z-index:100;margin-top:45px"></search>
+    <v-details :keyName="keyName" style="margin-top:100px"></v-details>
   </div>
 </template>
 
