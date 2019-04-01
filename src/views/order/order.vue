@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top:45px">
     <div v-if="this.$store.getters.orderState">
       <group>
         <x-table :cell-bordered="false" style="background-color:#fff;">

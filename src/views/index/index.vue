@@ -6,16 +6,12 @@
 </template>
 
 <script>
-  import head from '@/components/head.vue'
-  import bottom from '@/components/bottom.vue'
   import welcome from './welcome.vue'
   import hotCakes from './hotcakes.vue'
   import { getUrlKey } from '@/assets/scripts/utils.js'
 
   export default {
     components: {
-      'v-head': head,
-      'v-bottom': bottom,
       'v-welcome': welcome,
       'v-hotCakes': hotCakes
     },
