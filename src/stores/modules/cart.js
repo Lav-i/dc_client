@@ -1,7 +1,7 @@
 const state = {
   cartList: JSON.parse(localStorage.getItem('cartList')) ? JSON.parse(localStorage.getItem('cartList')) : {},
   orderState: -1,
-  tableId: '0000'
+  tableId: '1000'
 }
 
 const getters = {
@@ -43,9 +43,9 @@ const actions = {
     localStorage.setItem('cartList', JSON.stringify(cart))
     commit('deleteFood', cart)
   },
-  finishOrder ({commit}) {
+  finishOrder ({commit}, orderState) {
     localStorage.removeItem('cartList')
-    commit('finishOrder')
+    commit('finishOrder', orderState)
   },
   setTableId ({commit}, tableId) {
     localStorage.setItem('tableId', tableId)
@@ -62,8 +62,8 @@ const mutations = {
   deleteFood (state, cartList) {
     state.cartList = {...cartList}
   },
-  finishOrder (state) {
-    state.orderState = 0
+  finishOrder (state, orderState) {
+    state.orderState = orderState
   },
   setTableId (state, tableId) {
     state.tableId = tableId

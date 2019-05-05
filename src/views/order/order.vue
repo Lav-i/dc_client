@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top:45px">
-    <div v-if="this.$store.getters.orderState">
+    <div v-if="this.$store.getters.orderState===-1">
       <group>
         <x-table :cell-bordered="false" style="background-color:#fff;">
           <thead>
@@ -22,8 +22,13 @@
     <msg v-else :title="'操作成功'" :description="'请稍等片刻'">
       <template slot="buttons">
         <router-link to='/'>
+          <div>共计消费{{price}}元</div>
+          <br>
           <x-button plain type="primary">好的</x-button>
         </router-link>
+        <br>
+        <toast v-model="isCall" type="text" :time="1600" is-show-mask text="已呼叫请稍等"></toast>
+        <x-button plain type="primary" @click.native="call" :disabled="isCall">呼叫服务员</x-button>
       </template>
     </msg>
   </div>
@@ -41,7 +46,8 @@
   } from 'vux'
   import item from './children/item.vue'
   import {
-    finishOrder
+    finishOrder,
+    callWaiter
   } from '@/api/order'
 
   export default {
@@ -55,6 +61,16 @@
       'item': item
     },
     methods: {
+      call () {
+        callWaiter({
+          'id': this.$store.getters.orderState
+        }).then((response) => {
+          if (response.data.code === 0) {
+            console.log(response.data)
+            this.isCall = true
+          }
+        })
+      },
       hunger: function () {
         console.log(this.$store.getters.tableId)
         this.isEmptyToast = !(this.cartTotalPrice > 0)
@@ -62,17 +78,20 @@
           let data = []
           for (let i in this.list) {
             data.push({
+              name: this.list[i].name,
+              price: this.list[i].price,
               menuId: this.list[i].id,
               count: this.list[i].count
             })
           }
           finishOrder({
-            'tableId': 1,
-            'state': '0',
+            'tableId': this.$store.getters.tableId,
+            'state': '已点餐',
             'data': data
           }).then((response) => {
             if (response.data.code === 0) {
-              this.$store.dispatch('finishOrder')
+              this.price = response.data.data.price
+              this.$store.dispatch('finishOrder', response.data.data.id)
             }
           })
         }
@@ -88,7 +107,9 @@
     },
     data () {
       return {
-        isEmptyToast: false
+        isEmptyToast: false,
+        price: 0,
+        isCall: false
       }
     }
   }
