@@ -2,7 +2,7 @@
   <div>
     <group v-for='(menu) in menuList' :key='menu.id'>
       <cell :title='menu.name'>
-        <img slot="icon" width="100" style="display:block;margin-right:5px;" src="http://fs1.shop123.com.tw/400178/upload/standard/4001781607source_picture_719982.jpg">
+        <img slot="icon" width="100" style="display:block;margin-right:5px;" :src="require('../../../static/img/' + parseInt(Math.random() * 39) + '.jpg')">
         <selector :details="menu"></selector>
       </cell>
     </group>
@@ -34,7 +34,7 @@
     },
     props: {
       categoryMsg: {
-        default: 'all'
+        default: '所有'
       },
       keyName: String
     },

@@ -1,12 +1,16 @@
 <template>
   <div>
-    <panel :header='"Hot Cakes:"' :list='menuList' :type='"1"'></panel>
+    <panel :header='"月度最受欢迎榜单:"' :list='menuList' :type='"1"'></panel>
   </div>
 </template>
 
 <script>
-  import { Panel } from 'vux'
-  import {getHotCakes} from '@/api/menu'
+  import {
+    Panel
+  } from 'vux'
+  import {
+    getHotCakes
+  } from '@/api/menu'
 
   export default {
     components: {
@@ -24,7 +28,7 @@
           let menu = []
           for (let i in response.data.data) {
             menu.push({
-              src: 'http://fs1.shop123.com.tw/400178/upload/standard/4001781607source_picture_719982.jpg',
+              src: './static/img/' + parseInt(Math.random() * 5) + '.jpg',
               title: this.tab[i] + '：' + response.data.data[i].name,
               desc: '榜单销售' + this.tab[i] + '，累计月销售高达' + response.data.data[i].num + '件',
               url: '/'
@@ -39,5 +43,3 @@
 
 <style>
 </style>
-
-

@@ -19,23 +19,20 @@
   const imgsList = [{
     url: 'javascript:',
     img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
-    title: '送你一朵fua'
+    title: '欢迎使用智能点餐系统'
   }, {
     url: 'javascript:',
     img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg',
-    title: '送你一辆车'
+    title: '欢迎使用智能点餐系统'
   }, {
     url: 'javascript:',
-    img: 'https://static.vux.li/demo/5.jpg', // 404
-    title: '送你一次旅行',
-    fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
+    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg',
+    title: '欢迎使用智能点餐系统'
   }]
 
   const welcomeList = [
-    '欢迎',
-    'welcome',
-    'benvenuto',
-    'herzlich willkommen'
+    '欢迎使用本系统',
+    '欢迎使用智能点餐系统'
   ]
 
   export default {

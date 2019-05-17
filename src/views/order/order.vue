@@ -16,18 +16,25 @@
         </div>
         <cell :title='"合计"' :value='"￥"+cartTotalPrice'></cell>
       </group>
-      <toast v-model="isEmptyToast" type="text" :time="1600" is-show-mask text="Empty~"></toast>
-      <x-button type="primary" @click.native="hunger">I AM HUNGER !!!</x-button>
+      <toast v-model="isEmptyToast" type="text" :time="2000" is-show-mask text="购物车还是空的哦~"></toast>
+      <x-button type="primary" @click.native="hunger">提交订单</x-button>
     </div>
     <msg v-else :title="'操作成功'" :description="'请稍等片刻'">
       <template slot="buttons">
         <router-link to='/'>
           <div>共计消费{{price}}元</div>
+          <flow>
+            <flow-state state="1" :title="'订单已接收'" is-done></flow-state>
+            <flow-line :tip="'正在处理'"></flow-line>
+            <flow-state state="2" :title="'后厨已接收'"> </flow-state>
+            <flow-line></flow-line>
+            <flow-state state="3" :title="'已完成'"></flow-state>
+          </flow>
           <br>
           <x-button plain type="primary">好的</x-button>
         </router-link>
         <br>
-        <toast v-model="isCall" type="text" :time="1600" is-show-mask text="已呼叫请稍等"></toast>
+        <toast v-model="isCall" type="text" :time="2000" is-show-mask text="已呼叫请稍等"></toast>
         <x-button plain type="primary" @click.native="call" :disabled="isCall">呼叫服务员</x-button>
       </template>
     </msg>
@@ -42,7 +49,10 @@
     Toast,
     XButton,
     Msg,
-    XTable
+    XTable,
+    Flow,
+    FlowState,
+    FlowLine
   } from 'vux'
   import item from './children/item.vue'
   import {
@@ -58,6 +68,9 @@
       XButton,
       Msg,
       XTable,
+      Flow,
+      FlowState,
+      FlowLine,
       'item': item
     },
     methods: {
